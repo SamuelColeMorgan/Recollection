@@ -40,6 +40,7 @@ class BoardViewController: UIViewController,
     var boardPieces = 0
     var matches = 0
     var bonusTime = 0.0
+    var takenTime = ""
     
     @IBOutlet weak var difficultyButton: UIButton!
     @IBOutlet weak var boardCollectionView: UICollectionView!
@@ -492,6 +493,7 @@ class BoardViewController: UIViewController,
             "\(minutes):0\(seconds)"
         )
         if labelProgressTime >= 0.0 {
+            takenTime = "\(Int(allottedTime - labelProgressTime))"
             labelProgressTime -= labelTimeInc
             timeLabel.text = formattedTime
         } else {
@@ -605,7 +607,10 @@ class BoardViewController: UIViewController,
             }
         } else {
             let possibleMatches = boardPieces/2
-            alertMessage = "Matches Found: \(matches) out of \(possibleMatches)"
+            alertMessage = """
+                Matches Found: \(matches) out of \(possibleMatches)
+                Time: \(takenTime) Seconds
+            """
             if win {
                 titleMessage = "You Win!"
             } else {
